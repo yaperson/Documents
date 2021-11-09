@@ -7,8 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\VarDumper\Cloner\Data;
-
+use App\Entity\Table;
 /**
 * @Route("/table", name="table")
 */
@@ -18,32 +17,35 @@ class TableController extends AbstractController
     * @Route("/select", name="table_select")
     */
     public function select(Request $request){
+
         $form = $this->createForm(TableChoiceType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()){
+            dump("submit");
             $data = $form->getData();
-            $n = $data['table_number'];
-            $m = $data['line_count'];
+            $nbr = $data['table_number'];
+            $ind = $data['line_count'];
             $color = $data['color'];
+
+            $table = new Table($nbr);
+            $calculations = $table->calculMultiply($ind);
+
             $response = $this->render('table/index.html.twig', [
                 'controller_name' => 'TableControleur',
-                'n' => $n,
-                'm' => $m,
+                'nbr' => $nbr,
+                'calculations' => $calculations,
                 'color' => $color,
             ]);
         } else {
+            dump("not submit");            
             $response = $this->render('table/vue.html.twig', [
                 'formulaire' => $form->createView(),
-            ]);
-        return $response;
-        }
-        
+            ]);            
+        }        
 
-        return $this->render('table/vue.html.twig', [
-            'formulaire' => $form->createView(),
-        ]);
+        return $response;
     }
 
     public function index(): Response

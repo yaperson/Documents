@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TableChoiceType extends AbstractType
 {
@@ -17,24 +18,23 @@ class TableChoiceType extends AbstractType
         $builder->add('table_number', ChoiceType::class, [
             'choices'  => [
                 '0' => null,
-                '1' => true,
-                '2' => false,
-                '3' => false,
-                '4' => false,
-                '5' => false,
-                '6' => false,
-                '7' => false,
-                '8' => false,
-                '9' => false,
-                '10' => false,
+                '1' => 1,
+                '2' => 2,
+                '3' => 3,
+                '4' => 4,
+                '5' => 5,
+                '6' => 6,
+                '7' => 7,
+                '8' => 8,
+                '9' => 9,
+                '10' => 10,
             ],
         ])
-        //->add('ling_count', ChoiceType::class)
+        // ->add('line_count', ChoiceType::class)
         ->add('line_count', IntegerType::class)
-        ->add('color', ColorType::class);
-        // $builder->add('table_number', IntegerType::class, [
-        //     'attr' => ['style' => "width: 35px;"],
-        // ]);
+        ->add('color', ColorType::class)
+        ->add('GO', SubmitType::class, ['label' => 'Multiplier'],
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

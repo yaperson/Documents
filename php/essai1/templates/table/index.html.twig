@@ -23,8 +23,8 @@
     <span>{{ color }}</span>
 
     <div class="tab">
-        {% for i in 0 .. ind %}
-            <p class="tab_content">{{ nbr }} x {{i}} = {{ nbr * i }}</p>
+        {% for calculation in calculations %}
+            <p class="tab_content">{{ calculation.indice }} x {{nbr}} = {{ calculation.result}}</p>
         {% endfor %}
     </div>
 </div>
